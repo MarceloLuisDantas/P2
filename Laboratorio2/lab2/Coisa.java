@@ -17,6 +17,7 @@ public class Coisa {
       System.out.println(descanso.getStatusGeral());
       descanso.defineHorasDescanso(26);
       descanso.defineNumeroSemanas(2);
+      descanso.defineComentario("¯\\_(ツ)_/¯");
       System.out.println(descanso.getStatusGeral());
       descanso.defineHorasDescanso(26);
       descanso.defineNumeroSemanas(1);

@@ -1,68 +1,123 @@
 package lab2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
 * Registro dos temas e resumos do aluno
 * 
 * @author Marcelo Dantas
 */
 public class RegistroResumos {
-    /* 
-    * Limite maximo de resumos. Caso esse valor sejá atingido os valores
-    * do começo da lista de resumos seram sobrescritos.
-    */
+    /* Limite maximo de resumos */
     private final int LIMITE; 
-    private String[] resumos; // Foi escolhido utilizar 2 listas ao invês de uma por
-    private String[] temas;   // facilitar utilizar uma das 2 listas individualmente
-    private int cursor; /* Indicador de qual indice das listas atualizar */
-    private int total;  /* Total de resumos já registrados */
+
+    /* Lista de resumos e lista de temas */
+    private String[] resumos; 
+    private String[] temas;   
+
+    /* Cursos que indica qual indice escrever no 
+     * array de resumos e temas */
+    private int cursor; 
+
+    /* Total de resumos já cadastrados */
+    private int total;  
 
     RegistroResumos(int total) {
-        resumos = new String[total];
-        temas = new String[total];
-        LIMITE = total;
+        this.resumos = new String[total];
+        this.temas = new String[total];
+        this.LIMITE = total;
     }
 
-    public int conta() { return total; }
+    /**
+     * Metodo responsavel por retornar o total de resumos cadastrados
+     * 
+     * @return int - Total de resumos cadastrados
+     */
+    public int conta() { 
+        return this.total; 
+    }
 
+    /**
+     * Metodo responsavel por adicionar um tema e um resumo as listas
+     * 
+     * @param tema - Tema do resumo
+     * @param resumo - Texto do resumo
+     */
     public void adiciona(String tema, String resumo) {
-        if (total != LIMITE) { total += 1; }
+        if (this.total != this.LIMITE) { 
+            this.total += 1; 
+        }
         
-        temas[cursor] = tema;
-        resumos[cursor] = resumo;
+        this.temas[this.cursor] = tema;
+        this.resumos[this.cursor] = resumo;
 
         /* Verifica se é preciso começar a sobrescrever os primeiros resumos */
-        if (cursor != LIMITE - 1) { cursor += 1; }
-        else { cursor = 0; }
+        if (this.cursor != this.LIMITE - 1) 
+            this.cursor += 1; 
+        else 
+            this.cursor = 0; 
     }
 
-    /* Retorna uma lista contendo todos os resusmos com os seus temas */
+    /**
+     * Metodo responsavel por retornar todos os resumos junto ao seu tema
+     * 
+     * @return String[] - Retorna strings formatadas com "[tema]: [resumo]""
+     */    
     public String[] pegaResumos() {
-        String[] lista = new String[total];
-        for (int i = 0; i != total; i++)
-            lista[i] = temas[i] + ": " + resumos[i];
+        String[] lista = new String[this.total];
+        for (int i = 0; i != this.total; i++)
+            lista[i] = this.temas[i] + ": " + this.resumos[i];
         return lista;
     }
 
-    /*
-     * Retorna uma String que contem todos os temas abordados nos resumos
-     * separaso pro uma barra
+    /**
+     * Metodo resposnavel por listar todos os resumos
+     * 
+     * @return String - String contendo todos os resumos já registrados
      */
     public String imprimeResumos() {
         String retorno = new String();
-        retorno += String.format("- %d resumo(s) encontrado(s) \n- ", total);
+        retorno += String.format("- %d resumo(s) encontrado(s) \n- ", this.total);
 
-        String[] suporte = new String[total];
-        for (int i = 0; i != total; i++)
-            suporte[i] = temas[i];
+        String[] suporte = new String[this.total];
+        for (int i = 0; i != this.total; i++)
+            suporte[i] = this.temas[i];
 
         return retorno + String.join(" | ", suporte);
     }
 
-    /* Verfica se um tema especifico já foi abordado em algum resumo */
-    public boolean temResumo(String tema) {
-        for (int i = 0; i != total; i++)
-            if (temas[i].equals(tema)) 
+    /**
+     * Metodo responsavel por ferificar se um resumo com um tema especifico já foi cadastrado
+     * 
+     * @param tema - Tema do resumo a ser verificado
+     * @return Boolean - Resultado se existe um resumo com o tema especificado
+     */
+    public Boolean temResumo(String tema) {
+        for (int i = 0; i != this.total; i++)
+            if (this.temas[i].equals(tema)) 
                 return true;
         return false;
+    }
+
+    /**
+     * metodo responsavel por realizar a busca dos resumos de que 
+     * possuam colisão com o trecho passado nos parametros
+     * 
+     * @param trecho - Trecho a ser busca entre os resumos
+     * 
+     * @return String[] - uma lista contendo os temas e resumos que foram encontrados pela colisão
+     */
+    public String[] busca(String trecho) {
+        List<Integer> colisoes = new ArrayList<Integer>();
+        for (int i = 0; i != this.LIMITE; i++) 
+            if (this.resumos[i].contains(trecho)) 
+                colisoes.add(i);
+        
+        String[] encontrados = new String[colisoes.size()];
+        for (int i = 0; i != colisoes.size(); i++) 
+            encontrados[i] = this.temas[i] + ": " + this.resumos[i];
+
+        return encontrados;
     }
 }
