@@ -19,7 +19,7 @@ public class Eval {
         } else if ((escolha.equals("i"))) {
             controle.listaAlunosResponderam();
         } else if ((escolha.equals("m"))) {
-            controle.estatisticas();
+            controle.listaAlunosResponderam();
         } else if ((escolha.equals("s"))) {
             System.out.println("Fechando programa");
             System.exit(0);

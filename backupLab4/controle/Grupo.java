@@ -16,11 +16,9 @@ public class Grupo {
     public boolean equals(Grupo grupo) {
         return this.tema == grupo.tema;
     }
-    
     public String toString() {
         return String.format("%s %d/%d", tema, alunos.size(), tamanho);
     }
-    
     public boolean cheio() {
         return alunos.size() == tamanho;
     }

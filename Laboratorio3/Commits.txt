@@ -1,0 +1,6 @@
+Mudança de Contato[] List<Contato>
+- O uso de Arrays nesse contexto alem de não trazer vantagens, atrapalha muito o processo, precisando sempre lidar com nulls. Alem de 
+
+Mudança na entrada dos dados
+- Da forma que estava com scanner.next() era impossivel entrar com linhas vazias, pois so iria adicionado \n a entrada.
+

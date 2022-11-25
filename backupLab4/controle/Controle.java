@@ -1,11 +1,9 @@
 package controle;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Controle {
     private Map<String, Aluno> alunos = new HashMap<String, Aluno>();
@@ -28,7 +26,6 @@ public class Controle {
         matriculas.add(matricula);
         return true;
     }
-
     public boolean addGrupo() {
         String tema = IO.input("Tema do grupo: ");
         int tamanho = IO.inputInt("Vagas do grupo: ");
@@ -42,7 +39,6 @@ public class Controle {
         grupos.put(tema, grupo);
         return true;
     }
-
     public boolean addAlunoToGrupo() {
         String matricula = IO.input("Matricula: ");
         if (!alunos.containsKey(matricula)) {
@@ -78,7 +74,6 @@ public class Controle {
             System.out.println(alunos.get(matricula).toString());
         }
     }
-
     public void consultaAlunoGrupos() {
         String matricula = IO.input("Matricula: ");
         if (!alunos.containsKey(matricula)) {
@@ -92,7 +87,6 @@ public class Controle {
             }
         }
     }
-
     public void consultaGrupoAlunos() {
         String grupo = IO.input("Grupo: ");
         if (!grupos.containsKey(grupo)) {
@@ -106,14 +100,12 @@ public class Controle {
             }
         }
     }
-
     public void listaAlunos() {
         System.out.println("Alunos: ");
         for (int i = 0; i != matriculas.size(); i++) 
             System.out.println(
                 (i + 1) + ". Aluno: " + alunos.get(matriculas.get(i)).toString());
     }
-
     public void addAlunoToRespodneram() {
         String matricula = IO.input("Matricula: ");
         if (!alunos.containsKey(matricula)) {
@@ -123,7 +115,6 @@ public class Controle {
             System.out.println("Aluno registrado");
         }
     }
-
     public void listaAlunosResponderam() {
         if (responderam.size() <= 0) {
             System.out.println("Nem um aluno respondeu"); 
@@ -136,73 +127,18 @@ public class Controle {
         }
     }
     
-    private int maiorQuantidadeDeGrupos() {
-        int quantidade = 0;
-        for (String a : matriculas) 
-            if (alunos.get(a).totalGrupos() > quantidade) 
-                quantidade = alunos.get(a).totalGrupos();
-        return quantidade; 
-    }   
-
-    private void alunosEmMaisGrupos() {
-        int maior = maiorQuantidadeDeGrupos();
-        List<String> alunosMaior = matriculas.stream()
-            .filter(valor -> alunos.get(valor).totalGrupos() == maior)
-            .collect(Collectors.toList());
-        
-        if (alunosMaior.size() > 1) 
-            System.out.println("Alunos que estão em mais grupos:");
-        else 
-            System.out.println("Aluno que esta em mais grupos:");
-
-        int count = 1;
-        for (String matricula : alunosMaior) {
-            System.out.println(count + "º - " + alunos.get(matricula).toString());
-            count += 1;
-        }
-    }
-
-    private List<String> getCursos() {
-        List<String> cursos = new ArrayList<String>();
-        for (Map.Entry<String, Aluno> aluno : alunos.entrySet()) 
-            cursos.add(aluno.getValue().getCurso());
-        return cursos;
-    }
-
-    private Map<String, Integer> getCursoQuantidade() {
-        List<String> cursos = getCursos();
-
-        Map<String, Integer> cursoQuantidade = new HashMap<String, Integer>();
-        for (String curso : cursos)
-            cursoQuantidade.put(curso, 0);
-
-        for (Map.Entry<String, Aluno> aluno : alunos.entrySet()) {
-            String curso = aluno.getValue().getCurso();
-            cursoQuantidade.put(curso, cursoQuantidade.get(curso) + 1);
-        }
-
-        return cursoQuantidade;
-    }
-
-    private void cursos() {
-        for (Map.Entry<String, Integer> set : getCursoQuantidade().entrySet())
-            System.out.println(set.getKey() + " : " + set.getValue() + " Alunos ");
-    }
-
-    private void alunosSemGrupos() {
-        System.out.println("Alunos sem grupos: ");
-        int count = 0;
-        for (Map.Entry<String, Aluno> set : alunos.entrySet()) 
-            if (set.getValue().totalGrupos() == 0) {
-                System.out.println(set.getValue().getNome());
-                count += 1;
+    private void alunoEmMaisGrupos() {
+        String mais_grupos = "";
+        int total = 0;
+        for (String m : matriculas) {
+            if (alunos.get(m).totalGrupos() > total) {
+                total = alunos.get(m).totalGrupos();
+                mais_grupos = m;
             }
-        System.out.println(count + " alunos sem grupos");
-    }
-
+        }
+        System.out.println();
+    }    
     public void estatisticas() {
-        alunosEmMaisGrupos();
-        cursos();
-        alunosSemGrupos();
+        alunoEmMaisGrupos();
     }
 }

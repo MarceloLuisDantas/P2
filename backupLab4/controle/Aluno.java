@@ -15,14 +15,6 @@ public class Aluno {
         this.nome = nome;
     }
 
-    public String getCurso() {
-        return this.curso;
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
     public String[] getGrupos() {
         return grupos.toArray(new String[grupos.size()]);
     }
@@ -38,17 +30,13 @@ public class Aluno {
     public boolean equals(Aluno aluno) {
         return this.matricula == aluno.matricula;
     }
-    
-    public String getMatricula() { 
-        return this.matricula; 
-    }
+    public String getMatricula() { return this.matricula; }
     
     public boolean addGrupo(String tema) {
         if (!grupos.contains(tema)) {
             return grupos.add(tema); 
         } return false;
     }
-   
     public boolean rmvGrupo(String tema) {
         if (grupos.contains(tema)) {
             return grupos.remove(tema); 
