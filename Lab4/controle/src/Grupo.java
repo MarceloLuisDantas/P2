@@ -23,8 +23,7 @@ public class Grupo {
     }
     
     public String toString() {
-        return String.format("%s %d/%d", 
-            Utils.capitalize(tema), alunos.size(), tamanho);
+        return String.format("%s %d/%d", tema, alunos.size(), tamanho);
     }
 
     public boolean cheio() {

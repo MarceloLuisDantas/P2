@@ -23,11 +23,11 @@ public class TestAluno {
         assertEquals(true, aluno.addGrupo("Cogumelos"));
 
         assertEquals(2, aluno.totalGrupos());
-        assertArrayEquals(new String[]{"Mansão Scarlet", "Cogumelos"}, aluno.getGrupos());
+        assertArrayEquals(new String[]{"mansão scarlet", "cogumelos"}, aluno.getGrupos());
 
         assertEquals(false, aluno.addGrupo("Cogumelos"));
         assertEquals(2, aluno.totalGrupos());
-        assertArrayEquals(new String[]{"Mansão Scarlet", "Cogumelos"}, aluno.getGrupos());
+        assertArrayEquals(new String[]{"mansão scarlet", "cogumelos"}, aluno.getGrupos());
     } 
 
     @Test

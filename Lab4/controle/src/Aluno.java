@@ -43,7 +43,7 @@ public class Aluno {
 
     public String toString() {
         return String.format("%s - %s - %s", 
-            Utils.capitalize(matricula), 
+            matricula, 
             Utils.capitalize(nome), 
             Utils.capitalize(curso));
     }
@@ -53,8 +53,9 @@ public class Aluno {
     }
     
     public boolean addGrupo(String tema) {
-        if (!grupos.contains(tema)) {
-            return grupos.add(tema); 
+        String temaKey = tema.toLowerCase();
+        if (!grupos.contains(temaKey)) {
+            return grupos.add(temaKey); 
         } return false;
     }
 }

@@ -74,14 +74,14 @@ public class TestControle {
         c.addAlunoToGrupo("1", "Floresta da Magia");
         c.addAlunoToGrupo("2", "Templo Hakurei");
         
-        String[] esperado = new String[]{ "Floresta Da Magia 1/1",};
+        String[] esperado = new String[]{ "Floresta da Magia 1/1",};
         assertArrayEquals(esperado, c.consultaAlunoGrupos("1"));
 
         String[] esperado2 = new String[]{"Templo Hakurei 1/2",};
         assertArrayEquals(esperado2, c.consultaAlunoGrupos("2"));
 
-        c.addAlunoToGrupo("1", "Templo Hakurei");
-        String[] esperado3 = new String[]{"Floresta Da Magia 1/1", "Templo Hakurei 2/2"};
+        c.addAlunoToGrupo("1", "Templo HAKUREI");
+        String[] esperado3 = new String[]{"Floresta da Magia 1/1", "Templo Hakurei 2/2"};
         assertArrayEquals(esperado3, c.consultaAlunoGrupos("1"));
 
         String[] esperado4 = new String[]{"Templo Hakurei 2/2",};

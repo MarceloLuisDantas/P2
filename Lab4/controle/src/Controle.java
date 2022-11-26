@@ -53,15 +53,14 @@ public class Controle {
      * @return False caso o grupo já existe, true caso contrario
      */
     public boolean addGrupo(String tema, int tamanho) {
-        tema = tema.toLowerCase();
-
-        if (grupos.containsKey(tema)) {
+        String temaKey = tema.toLowerCase();
+        if (grupos.containsKey(temaKey)) {
             System.out.println("Já existe um grupo com tema " + tema);
             return false;
         }
 
         Grupo grupo = new Grupo(tema, tamanho);
-        grupos.put(tema, grupo);
+        grupos.put(temaKey, grupo);
         return true;
     }
 
@@ -78,7 +77,6 @@ public class Controle {
      * O Aluno já esta cadastrado. 
      */
     public String addAlunoToGrupo(String matricula, String grupo) {
-        matricula = matricula.toLowerCase();
         grupo = grupo.toLowerCase();
 
         if (!alunos.containsKey(matricula)) 
@@ -125,8 +123,10 @@ public class Controle {
             List<String> listaGrupos = new ArrayList<String>();
 
             System.out.println("Grupos: ");
-            for (String i : alunoGrupos) 
+            for (String i : alunoGrupos) {
                 listaGrupos.add(grupos.get(i).toString());
+
+            }
 
             return listaGrupos.toArray(new String[listaGrupos.size()]);
         }
