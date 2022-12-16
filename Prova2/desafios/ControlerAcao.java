@@ -11,6 +11,8 @@ import java.util.List;
 public class ControlerAcao {
     // HashMap relacionando um ID a uma Ação
     private HashMap<Integer, Acao> acoes = new HashMap<Integer, Acao>();
+    // Lista de ações completas
+    private List<Integer> acoes_completas = new ArrayList<Integer>();
 
     /**
      * Cria uma nova ação
@@ -19,11 +21,17 @@ public class ControlerAcao {
      * tokens[2] Data de inicio da Ação, 
      * tokens[3] Id da Ação
      */
-    public void add_acao(String[] tokens) {
-        int desafio_id = Integer.parseInt(tokens[1]);
-        String data = tokens[2];
+    public boolean add_acao(String[] tokens) {
         int id = Integer.parseInt(tokens[3]);
-        acoes.put(id, new Acao(desafio_id, data, id));
+        if (!acoes.containsKey(id)) {
+            int desafio_id = Integer.parseInt(tokens[1]);
+            String data = tokens[2];
+            acoes.put(id, new Acao(desafio_id, data, id));
+            return true;
+        } else {
+            System.out.println("Não se pode adicionar 2 ações com om moes ID");
+            return false;
+        }
     }
 
     /**
@@ -34,7 +42,20 @@ public class ControlerAcao {
      * @return Se a açõa foi completada
      */
     public boolean add_progresso(int id, int total) {
-        return acoes.get(id).add_progresso(total);
+        if (acoes.get(id).add_progresso(total)) {
+            acoes_completas.add(id);
+            return true;
+        } 
+        return false;
+    }
+
+    /**
+     * Verfica se uma ação esta completa
+     * @param id Id da ação
+     * @return Se a ação já foi completada
+     */
+    public boolean acao_completa(int id) {
+        return acoes_completas.contains(id);
     }
 
     /**

@@ -1,14 +1,11 @@
 package desafios;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Classe responsavel pelo controle geral de desafios e ações
  */
 public class Controler {
-    // Lista de ações completas
-    private List<Integer> acoes_completas = new ArrayList<Integer>();
     private ControlerDesafio desafios; // Controle dos desafios
     private ControlerAcao acoes;       // Controle das ações
 
@@ -18,8 +15,11 @@ public class Controler {
      * @param tokens Lista de Tokens contendo as informações necessarias
      * tokens[1] Titulo do desafio, 
      * tokens[2] Descrição do desafio, 
+     * @return Se o desafio foi cadastrado ou se já existia um com mesmo titulo 
      */
-    public void add_desafio(String[] tokens) { desafios.add_desafio(tokens); }
+    public boolean add_desafio(String[] tokens) { 
+        return desafios.add_desafio(tokens); 
+    }
 
     /**
      * Cria uma nova ação
@@ -28,8 +28,11 @@ public class Controler {
      * tokens[1] Id do desafio, 
      * tokens[2] Data de inicio da Ação, 
      * tokens[3] Id da Ação
+     * @return Se a acao foi cadastrada ou se já existia uma com mesmo ID
      */
-    public void add_acao(String[] tokens) { acoes.add_acao(tokens); }
+    public boolean add_acao(String[] tokens) { 
+        return acoes.add_acao(tokens); 
+    }
 
     /**
      * Mostra a representação de um Desafio
@@ -57,16 +60,15 @@ public class Controler {
      * @return Mensagem sobre o estado da ação
      */
     public String progresso_acao(int id_acao, int total) {
-        if (!acoes_completas.contains(id_acao)) {
+        if (!acoes.acao_completa(id_acao)) {
             if (acoes.add_progresso(id_acao, total)) {
                 int id_desafio = acoes.getAcao(id_acao).getDesafioId();
                 desafios.add_execucao(id_desafio);
-                acoes_completas.add(id_acao);
                 return "Acão completada com sucesso"; 
             } 
             return "Progresso realizado";
         }
-        return "Acoes já compeltadas não podem ser alteradas";
+        return "Ações já compeltadas não podem ser alteradas";
     }
 
     /**

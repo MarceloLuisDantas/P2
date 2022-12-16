@@ -17,9 +17,12 @@ public class Desafio {
     public Desafio(String titulo, String descricao) {
         this.titulo = titulo;
         this.descricao = descricao;
+        this.execucao = 0;
     }
 
     public String getTitulo() { return this.titulo; }
+    public String getDescricao() { return this.descricao; }
+    public int getExecucao() {return this.execucao; }
 
     /**
      * @return Titulo: [titulo] [execucao] Execuções

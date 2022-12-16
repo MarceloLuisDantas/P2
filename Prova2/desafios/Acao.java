@@ -6,8 +6,8 @@ package desafios;
 public class Acao implements java.lang.Comparable<Acao> {
     private String data;       // Data de inicio 
     private int desafio_id;    // Id do Desafio relacionado
-    private Integer progresso; // Progresso ?/100
-    private int id;            // Id da acao
+    private Integer progresso; // Progresso x/100
+    private Integer id;            // Id da acao
 
     /**
      * Cria uma nova ação
@@ -37,8 +37,12 @@ public class Acao implements java.lang.Comparable<Acao> {
      * @return Se a ação foi concluida
      */
     public boolean add_progresso(int total) {
-        if (total == -1) this.progresso += 10;
-        else this.progresso += total;
+        if (total <= 0) 
+            this.progresso += 10;
+        else if (this.progresso + total >= 100) 
+            this.progresso = 100;
+        else 
+            this.progresso += total; 
         return concluido();
     }
 
@@ -49,12 +53,16 @@ public class Acao implements java.lang.Comparable<Acao> {
         return "Acao " + id + " " + progresso + "/100";
     } 
 
-    public Integer getProgresso() { return this.progresso; } 
+    public int getProgresso() { return this.progresso; } 
     public int getDesafioId() { return this.desafio_id; }
     public String getData() { return this.data; }
-    public int getId() { return this.id; }
+    public Integer getId() { return this.id; }
 
     public int compareTo(Acao a) {
-        return this.progresso.compareTo(a.getProgresso());
+        if (this.progresso == a.getProgresso()) 
+            return this.id.compareTo(a.getId());
+        if (this.progresso.compareTo(a.getProgresso()) > 0)
+            return -1;
+        return 1;
     }
 }
