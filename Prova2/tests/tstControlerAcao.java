@@ -16,6 +16,9 @@ public class tstControlerAcao {
         boolean r1 = ca.add_acao(input1);
         assertEquals(true, r1);
 
+        boolean r2 = ca.add_acao(input1);
+        assertEquals(false, r2);
+
         Acao a1 = new Acao(1, "“14/12/2022”", 44);
         Acao a2 = ca.getAcao(44);
         assertEquals(a1.getId(), a2.getId());
@@ -24,8 +27,8 @@ public class tstControlerAcao {
         assertEquals(a1.toString(), ca.exibi_acao(44));
 
         String[] input2 = "ADD_ACAO 2 “15/12/2022” 44".split(" ");
-        boolean r2 = ca.add_acao(input2);
-        assertEquals(false, r2);
+        boolean r3 = ca.add_acao(input2);
+        assertEquals(false, r3);
     }
 
     @Test

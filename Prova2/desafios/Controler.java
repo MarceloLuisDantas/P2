@@ -6,8 +6,10 @@ import java.util.List;
  * Classe responsavel pelo controle geral de desafios e ações
  */
 public class Controler {
-    private ControlerDesafio desafios; // Controle dos desafios
-    private ControlerAcao acoes;       // Controle das ações
+    // Controle dos desafios
+    private ControlerDesafio desafios = new ControlerDesafio(); 
+    // Controle das ações
+    private ControlerAcao acoes = new ControlerAcao();          
 
      /**
      * Cria um novo desafio
@@ -34,22 +36,28 @@ public class Controler {
         return acoes.add_acao(tokens); 
     }
 
+    public int get_poss(String titulo) {
+        return desafios.get_poss(titulo);
+    }
+
     /**
      * Mostra a representação de um Desafio
      * 
      * @param indice Indice do desafio na lista 
+     * @return String contendo a representação do desafio
      */
-    public void show_desafio(int indice) { 
-        System.out.println(desafios.exibi_desafio(indice));
+    public String show_desafio(int indice) { 
+        return desafios.exibi_desafio(indice);
     }
 
     /**
-     * Mostra a representação de uma Ação
+     * Retorna a representação de uma Ação
      * 
      * @param id Id da ação 
+     * @return String contendo a representação da ação
      */
-    public void show_acao(int id) {
-        System.out.println(acoes.exibi_acao(id));
+    public String show_acao(int id) {
+        return acoes.exibi_acao(id);
     } 
 
     /**
@@ -63,7 +71,7 @@ public class Controler {
         if (!acoes.acao_completa(id_acao)) {
             if (acoes.add_progresso(id_acao, total)) {
                 int id_desafio = acoes.getAcao(id_acao).getDesafioId();
-                desafios.add_execucao(id_desafio);
+                desafios.add_execucao(id_desafio - 1);
                 return "Acão completada com sucesso"; 
             } 
             return "Progresso realizado";

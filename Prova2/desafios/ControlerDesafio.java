@@ -35,6 +35,13 @@ public class ControlerDesafio {
         return true;
     }
 
+    public int get_poss(String titulo) {
+        for (Desafio d : desafios) 
+            if (d.getTitulo().equals(titulo))
+                return desafios.indexOf(d);
+        return -1;
+    }
+
     /**
      * @param indice Indice do Desafio na lista
      * @return Represetanção em String de um desafio
