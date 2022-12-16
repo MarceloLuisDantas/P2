@@ -67,12 +67,18 @@ public class ControlerAcao {
         return lista;
     }
 
+    public boolean existeAcao(int id) {
+        return acoes.containsKey(id);
+    }
+
     /**
      * @param id Id da ação a ser exibido
      * @return Representação em String da ação
      */
     public String exibi_acao(int id) {
-        return acoes.get(id).toString();
+        if (existeAcao(id))
+            return acoes.get(id).toString();
+        return "ID não encontrado";
     }
 
     /**

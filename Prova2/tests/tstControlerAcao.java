@@ -106,4 +106,15 @@ public class tstControlerAcao {
         assertEquals(4, id_3);
         assertEquals(3, id_4);
     }
+
+    @Test
+    public void testeAcaoNaoExistente() {
+        ControlerAcao ca = new ControlerAcao();
+        boolean r1 = ca.existeAcao(0);
+        assertEquals(false, r1);
+
+        ca.add_acao(new String[]{"", "1", "hoje", "4"});
+        boolean r2 = ca.existeAcao(4);
+        assertEquals(true, r2);
+    }
 }

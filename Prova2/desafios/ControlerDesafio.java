@@ -42,12 +42,18 @@ public class ControlerDesafio {
         return -1;
     }
 
+    public boolean existeDesafio(int indice) {
+        return desafios.size() >= indice;
+    }
+
     /**
      * @param indice Indice do Desafio na lista
      * @return Represetanção em String de um desafio
      */
     public String exibi_desafio(int indice) {
-        return desafios.get(indice).toString();
+        if (existeDesafio(indice))
+            return desafios.get(indice).toString();
+        return "Indice recebido não existente";
     }
 
     /**

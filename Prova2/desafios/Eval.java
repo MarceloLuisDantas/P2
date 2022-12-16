@@ -2,10 +2,6 @@ package desafios;
 
 public class Eval {
     private Controler controler = new Controler();
-    private final String[] COMANDOS = {
-        "ADD_ACAO", "ADD_DESAFIO", "EXIBIR_DESAFIO", "EXIBIR_ACAO",
-        "PROGRESSO_ACAO", "LISTAR_ACAO_POR_ORDEM_PROGRESSO"
-    };
 
     private String getTituloDesafio(String linha) {
         String[] tokens1 = linha.split("“");

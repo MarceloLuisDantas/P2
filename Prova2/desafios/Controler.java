@@ -68,6 +68,9 @@ public class Controler {
      * @return Mensagem sobre o estado da ação
      */
     public String progresso_acao(int id_acao, int total) {
+        if (!acoes.existeAcao(id_acao)) 
+            return "ID não catalogado";
+            
         if (!acoes.acao_completa(id_acao)) {
             if (acoes.add_progresso(id_acao, total)) {
                 int id_desafio = acoes.getAcao(id_acao).getDesafioId();

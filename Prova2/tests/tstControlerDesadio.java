@@ -30,4 +30,15 @@ public class tstControlerDesadio {
         cd.add_execucao(0);
         assertEquals(1, cd.getDesafio(0).getExecucao());
     }
+
+    @Test
+    public void testeDesafioNaoExistente() {
+        ControlerDesafio cd = new ControlerDesafio();
+        boolean r = cd.existeDesafio(3);
+        assertEquals(false, r);
+
+        cd.add_desafio(new String[]{"", "teste", ""});
+        boolean r2 = cd.existeDesafio(1);
+        assertEquals(true, r2);
+    }
 }
