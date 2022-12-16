@@ -36,6 +36,12 @@ public class Controler {
         return acoes.add_acao(tokens); 
     }
 
+    /**
+     * Verifica a possição de um desafio na lista de desafios
+     * 
+     * @param titulo Titulo do desafio a ser procurado
+     * @return Indice do titulo, caso não existe retorna -1
+     */
     public int get_poss(String titulo) {
         return desafios.get_poss(titulo);
     }
@@ -100,5 +106,4 @@ public class Controler {
             );
         }
     }
-
 }

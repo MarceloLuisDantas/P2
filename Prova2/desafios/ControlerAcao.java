@@ -67,6 +67,12 @@ public class ControlerAcao {
         return lista;
     }
 
+    /**
+     * Verifica se existe uma ação com um ID especifico
+     * 
+     * @param id ID da ação
+     * @return Se a ação existe
+     */
     public boolean existeAcao(int id) {
         return acoes.containsKey(id);
     }

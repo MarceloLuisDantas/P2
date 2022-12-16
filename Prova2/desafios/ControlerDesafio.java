@@ -35,6 +35,12 @@ public class ControlerDesafio {
         return true;
     }
 
+    /**
+     * Verifica a possição deu desafio na lista de desafios
+     * 
+     * @param titulo Titulo do desafio
+     * @return Possição do desafio na lista, caso não existe é retornado -1
+     */
     public int get_poss(String titulo) {
         for (Desafio d : desafios) 
             if (d.getTitulo().equals(titulo))
@@ -42,6 +48,11 @@ public class ControlerDesafio {
         return -1;
     }
 
+    /**
+     * Verifica se um indice passado estra entre os disponiveis na lista de Desafios.
+     * @param indice Indice desejado
+     * @return Se o indice este entre os indices disponiveis
+     */
     public boolean existeDesafio(int indice) {
         return desafios.size() >= indice;
     }
