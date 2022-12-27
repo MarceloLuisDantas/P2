@@ -1,7 +1,10 @@
 package documin;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import documin.Elementos.Elemento;
 
 public class Documento {
     private List<Elemento> elementos = new ArrayList<Elemento>();
@@ -17,20 +20,40 @@ public class Documento {
         this.tamanho = tamanho;
     }
 
-    public boolean newElemento(Elemento e) {
-        if (!(tamanho == 0)) 
-            if (elementos.size() == tamanho) 
-                return false;
-
-        elementos.add(e);
-        return true;
+    public boolean cabe() {
+        if (tamanho == 0) 
+            return true;
+        return (elementos.size() < tamanho);
     }
-    
+
+    public int newElemento(Elemento e) {
+        elementos.add(e);
+        return elementos.size();
+    }
+
+    public Elemento removeElemento(int indice) {
+        return elementos.remove(indice);
+    }
+
+    public Elemento getElemento(int indice) {
+        return elementos.get(indice);
+    }
+
     public String[] ShowElementos() {
         List<String> resultado = new ArrayList<String>();
         for (Elemento e : elementos) 
             resultado.add(e.representacaoCompleta());
 
         return resultado.toArray(new String[tamanho]);
+    }
+
+    public void swapUp(int indice) {
+        if (indice < elementos.size() - 1) 
+            Collections.swap(elementos, indice, indice + 1);
+    }
+    
+    public void swapDown(int indice) {
+        if (indice > 0) 
+            Collections.swap(elementos, indice, indice - 1);
     }
 }
