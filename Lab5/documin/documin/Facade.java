@@ -18,6 +18,11 @@ public class Facade {
     private Map<String, Documento> documentos = new HashMap<String, Documento>();
     private List<String[]> visualizacoes = new ArrayList<String[]>();
 
+    /**
+     * Cria um documento com sem limite de elementos
+     * @param titulo Titulo do documento
+     * @return Se o documento foi cadastrado, falso caso já exista um com o mesmo nome
+     */
     public boolean criarDocumento(String titulo) {
         if (documentos.containsKey(titulo))
             return false;
@@ -27,6 +32,12 @@ public class Facade {
         return true;
     }
 
+    /**
+     * Cria um documento com tamanho fixo de elementos
+     * @param titulo Titulo do documento
+     * @param tamanhoMaximo Total de elementos
+     * @return Se o documento foi cadastrado, falso caso já exista um com o mesmo nome
+     */
     public boolean criarDocumento(String titulo, int tamanhoMaximo) {
         if (documentos.containsKey(titulo))
             return false;
@@ -36,11 +47,20 @@ public class Facade {
         return true;
     }
 
+    /**
+     * Remove um documento com o nome especifica
+     * @param titulo Nome do documento
+     */
     public void removerDocumento(String titulo) {
         if (documentos.containsKey(titulo))
             documentos.remove(titulo);
     }
 
+    /**
+     * Verifica quantos elementos um documento possui
+     * @param titulo Nome do documento
+     * @return Total, -1 caso o documento não exista
+     */
     public int contarElementos(String titulo) {
         if (documentos.containsKey(titulo)) 
             return documentos.get(titulo).getElementos().length;
@@ -49,6 +69,12 @@ public class Facade {
         return -1;
     }
 
+    /**
+     * Retorna uma lista com a represetanção completa 
+     * de todos os elementos de um documento
+     * @param titulo Nome do dcumento
+     * @return Lista da represetanção dos elementos
+     */
     public String[] exibirDocumento(String titulo) {
         if (documentos.containsKey(titulo)) 
             return documentos.get(titulo).ShowElementos();
@@ -57,21 +83,36 @@ public class Facade {
         return new String[0];
     }
 
+    /**
+     * Adiciona um elemento a um documento especifico
+     * @param tituloDoc Nome do documento
+     * @param e Elemento
+     * @return Qual o indice do elemento no documento, -1 caso 
+     * o documento não exista e -2 caso o documento esteja cheio
+     */
     private int addElemento(String tituloDoc, Elemento e) {
         if (!documentos.containsKey(tituloDoc)) {
             System.out.println("Documento " + tituloDoc + " não encontrado");
-            return 0;
+            return -1;
         }
         
         if (!documentos.get(tituloDoc).cabe()) {
             System.out.println("Sem espaços disponiveis");
-            return 0;
+            return -2;
         } 
 
         System.out.println("Elemento adicionado com sucesso");
         return documentos.get(tituloDoc).newElemento(e);
     }
 
+    /**
+     * Cria um elemento de texto
+     * @param tituloDoc Titulo do documento
+     * @param valor Valor do elemento
+     * @param prioridade Prioridade do elemento, valores a cima de 5 seram arredondados para 5
+     * @return Qual o indice do elemento no documento, -1 caso 
+     * o documento não exista e -2 caso o documento esteja cheio 
+     */
     public int criarTexto(String tituloDoc, String valor, int prioridade) {
         if (prioridade >= 5) { 
             System.out.println("A maior prioridade é 5, ela sera ajustada altomaticamente para 5");
@@ -82,6 +123,14 @@ public class Facade {
         return addElemento(tituloDoc, texto);
     }
 
+    /**
+     * Cria um elemento de titulo
+     * @param tituloDoc Titulo do documento
+     * @param valor Valor do elemento
+     * @param prioridade Prioridade do elemento, valores a cima de 5 seram arredondados para 5
+     * @return Qual o indice do elemento no documento, -1 caso 
+     * o documento não exista e -2 caso o documento esteja cheio 
+     */
     public int criarTitulo(String tituloDoc, String valor, int prioridade, int nivel, boolean linkavel) {
         if (prioridade >= 5) { 
             System.out.println("A maior prioridade é 5, ela sera ajustada altomaticamente para 5");
@@ -92,6 +141,14 @@ public class Facade {
         return addElemento(tituloDoc, titulo);
     }
 
+    /**
+     * Cria um elemento de lista
+     * @param tituloDoc Titulo do documento
+     * @param valor Valor do elemento
+     * @param prioridade Prioridade do elemento, valores a cima de 5 seram arredondados para 5
+     * @return Qual o indice do elemento no documento, -1 caso 
+     * o documento não exista e -2 caso o documento esteja cheio 
+     */
     public int criarLista(String tituloDoc, String valorLista, int prioridade, String separador, String charLista) {
         if (prioridade >= 5) { 
             System.out.println("A maior prioridade é 5, ela sera ajustada altomaticamente para 5");
@@ -102,6 +159,14 @@ public class Facade {
         return addElemento(tituloDoc, lista);
     }
 
+    /**
+     * Cria um elemento de termo
+     * @param tituloDoc Titulo do documento
+     * @param valor Valor do elemento
+     * @param prioridade Prioridade do elemento, valores a cima de 5 seram arredondados para 5
+     * @return Qual o indice do elemento no documento, -1 caso 
+     * o documento não exista e -2 caso o documento esteja cheio 
+     */
     public int criarTermos(String tituloDoc, String valorTermos, int prioridade, String separador, String ordem) {
         if (prioridade >= 5) { 
             System.out.println("A maior prioridade é 5, ela sera ajustada altomaticamente para 5");
@@ -112,27 +177,36 @@ public class Facade {
         return addElemento(tituloDoc, termo);
     }
 
+    /**
+     * Cria um elemento de atalho
+     * @param tituloDoc Titulo do documento
+     * @param tituloDocReferenciado Titulo do documento a virar um atalho
+     * @return Qual o indice do elemento no documento, -1 caso o documento a 
+     * receber o elemento não exista, -2 o documnto alvo seja um atalho, -3 
+     * caso o documento a virar atalho não exista e -4 caso o documento a 
+     * virar um atalho possua atalhos.
+     */
     public int criarAtalho(String tituloDoc, String tituloDocReferenciado) {
         if (!documentos.containsKey(tituloDoc)) {
             System.out.println("Documento " + tituloDoc + " não encontrado");
-            return 0;
+            return -1;
         }
 
         Documento receberAtalho = documentos.get(tituloDoc);
         if (receberAtalho.isAtalho()) {
             System.out.println("Documentos que são atalhos não podem ter atalhos");    
-            return 0;
+            return -2;
         }
 
         if (!documentos.containsKey(tituloDocReferenciado)) {
             System.out.println("Documento " + tituloDocReferenciado + " não encontrado");
-            return 0;
+            return -3;
         }
 
         Documento paraAtalho = documentos.get(tituloDocReferenciado);
         if (paraAtalho.temAtalho()) {
             System.out.println("Documentos que possuem atalhos não podem ser atalho");
-            return 0;
+            return -4;
         }
 
         documentos.get(tituloDocReferenciado).turnAtalho();
@@ -142,18 +216,38 @@ public class Facade {
         return documentos.get(tituloDoc).newElemento(atalho);
     }
 
+    /**
+     * Retorna a represetanção completa de um elemento em um documento
+     * @param tituloDoc Nome do documento
+     * @param elementoPosicao Posição do elemento no documento
+     * @return Represenção, ou string vazia caso o documento não exista ou o elemento não exista
+     */
     public String pegarRepresentacaoCompletaDeElemento(String tituloDoc, int elementoPosicao) {
-        if (documentos.containsKey(tituloDoc)) {
-            return documentos.get(tituloDoc).getElemento(elementoPosicao).representacaoCompleta();
-        }
-        return "Documento " + tituloDoc + " não encontrado";
+        if (!documentos.containsKey(tituloDoc)) 
+            return "";
+        
+        Documento doc = documentos.get(tituloDoc);
+        if (doc.existeElemento(elementoPosicao))
+            return doc.getElemento(elementoPosicao).representacaoCompleta();
+
+        return "";
     }
 
+    /**
+     * Retorna a represetanção resumida de um elemento em um documento
+     * @param tituloDoc Nome do documento
+     * @param elementoPosicao Posição do elemento no documento
+     * @return Represenção, ou string vazia caso o documento não exista ou o elemento não exista
+     */
     public String pegarrepresentacaoResumidaDeElemento(String tituloDoc, int elementoPosicao) {
-        if (documentos.containsKey(tituloDoc)) {
-            return documentos.get(tituloDoc).getElemento(elementoPosicao).representacaoResumida();
-        }
-        return "Documento " + tituloDoc + " não encontrado";
+        if (!documentos.containsKey(tituloDoc)) 
+            return "";
+        
+        Documento doc = documentos.get(tituloDoc);
+        if (doc.existeElemento(elementoPosicao))
+            return doc.getElemento(elementoPosicao).representacaoResumida();
+
+        return "";
     }
 
     public boolean apagarElemento(String tituloDoc, int elementoPosicao) {
