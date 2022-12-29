@@ -13,7 +13,9 @@ public class Elemento {
         this.prioridade = prioridade;
     }
 
-    public String getValor() { return this.valor; }
+    public String getValor() { return valor; }
+    public String getTipo() { return "Elemento"; }
+    public int getPrioridade() { return prioridade; }
 
     public String representacaoCompleta() {
         return this.valor;

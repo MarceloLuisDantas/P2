@@ -25,6 +25,9 @@ public class Termo extends Elemento {
         this.separador = separador;
     }
 
+    @Override
+    public String getTipo() { return "Termo"; }
+
     @Override   
     public String representacaoCompleta() {
         String result = "Total termos: " + lista.size() + "- \n";

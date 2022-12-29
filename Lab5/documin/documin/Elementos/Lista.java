@@ -15,6 +15,9 @@ public class Lista extends Elemento {
     }
 
     @Override
+    public String getTipo() { return "Lista"; }
+
+    @Override
     public String representacaoCompleta() {
         String result = "";
         for (String p : lista) 

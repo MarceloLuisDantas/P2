@@ -11,6 +11,9 @@ public class Titulo extends Elemento {
     }
 
     @Override
+    public String getTipo() { return "Titulo"; }
+
+    @Override
     public String representacaoCompleta() {
         String result = "";
         result += nivel + ". " + this.getValor();
