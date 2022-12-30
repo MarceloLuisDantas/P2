@@ -1,5 +1,6 @@
 package documin;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -250,24 +251,43 @@ public class Facade {
         return "";
     }
 
+    /**
+     * Apaga um elemento de um documento
+     * @param tituloDoc nome do Documento
+     * @param elementoPosicao possição do elemento no documento
+     * @return True se o elemento foi removido, false caso o elemento ou documento não exista. 
+     */
     public boolean apagarElemento(String tituloDoc, int elementoPosicao) {
         if (documentos.containsKey(tituloDoc)) 
             return (documentos.get(tituloDoc).removeElemento(elementoPosicao) != null);
         return false;
     }
 
+    /**
+     * Move um elemento em um documento para posição superior, no caso da posição 5 -> 4 da lsita
+     * @param tituloDoc Nome do documento
+     * @param elementoPosicao possição do elemento no documento
+     */
     public void moverParaCima(String tituloDoc, int elementoPosicao) {
-        if (documentos.containsKey(tituloDoc)) {
+        if (documentos.containsKey(tituloDoc)) 
             documentos.get(tituloDoc).swapUp(elementoPosicao);
-        }
     }
     
+    /**
+     * Move um elemento em um documento para posição inferior, no caso da posição 4 -> 5 da lsita
+     * @param tituloDoc Nome do documento
+     * @param elementoPosicao possição do elemento no documento
+     */
     public void moverParaBaixo(String tituloDoc, int elementoPosicao) {
-        if (documentos.containsKey(tituloDoc)) {
+        if (documentos.containsKey(tituloDoc)) 
             documentos.get(tituloDoc).swapDown(elementoPosicao);
-        }
     }  
 
+    /**
+     * Cria uma visão completa de um documento
+     * @param tituloDoc Nome do documento
+     * @return indice da visão na lista de visões
+     */
     public int criarVisaoCompleta(String tituloDoc) {
         if (!documentos.containsKey(tituloDoc)) {
             System.out.println("Documento " + tituloDoc + " não encontrado");
@@ -278,11 +298,17 @@ public class Facade {
         return visualizacoes.size();
     }
 
+    /**
+     * Cria uma visão resumida de um documento
+     * @param tituloDoc Nome do documento
+     * @return indice da visão na lista de visões
+     */
     public int criarVisaoResumida(String tituloDoc) {
         if (!documentos.containsKey(tituloDoc)) {
             System.out.println("Documento " + tituloDoc + " não encontrado");
             return -1;
         }
+
         List<Elemento> elementos = Arrays.asList(documentos.get(tituloDoc).getElementos());
         visualizacoes.add(elementos.stream()
             .map((Elemento e) -> e.representacaoResumida())
@@ -292,6 +318,12 @@ public class Facade {
         return visualizacoes.size();
     }
     
+    /**
+     * Cria uma visão de um documento com os elementos com uma prioridade minima
+     * @param tituloDoc Nome do documento
+     * @param prioridade Prioridade minima desejada
+     * @return indice da visão na lista de visões
+     */
     public int criarVisaoPrioritaria(String tituloDoc, int prioridade) {
         if (!documentos.containsKey(tituloDoc)) {
             System.out.println("Documento " + tituloDoc + " não encontrado");
@@ -310,6 +342,11 @@ public class Facade {
         return visualizacoes.size();
     }
    
+    /**
+     * Cria uma visão de um documento com os elementos de titulo
+     * @param tituloDoc Nome do documento
+     * @return indice da visão na lista de visões
+     */
     public int criarVisaoTitulo(String tituloDoc) {
         if (!documentos.containsKey(tituloDoc)) {
             System.out.println("Documento " + tituloDoc + " não encontrado");
@@ -328,10 +365,14 @@ public class Facade {
         return visualizacoes.size();
     }
    
+    /**
+     * Mostra uma das visões geradas
+     * @param visaoId indice da visão
+     * @return visão, uma lista vazia sera retornada caso a visão não exista
+     */
     public String[] exibirVisao(int visaoId) {
         if (visaoId > visualizacoes.size()) 
             return new String[0];
         return visualizacoes.get(visaoId - 1);
     }
-
 }

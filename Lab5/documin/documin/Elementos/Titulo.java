@@ -6,6 +6,8 @@ public class Titulo extends Elemento {
 
     public Titulo(String valor, int prioridade, int nivel, boolean linkavel) {
         super(valor, prioridade);
+
+        if (nivel > 5) { nivel = 5; }
         this.nivel = nivel;
         this.linkavel = linkavel;
     }
@@ -18,7 +20,7 @@ public class Titulo extends Elemento {
         String result = "";
         result += nivel + ". " + this.getValor();
         if (linkavel) {
-            result += " --\n1-" + this.getValor().toUpperCase();
+            result += " --\n1- " + this.getValor().toUpperCase();
         }
         return result; 
     }

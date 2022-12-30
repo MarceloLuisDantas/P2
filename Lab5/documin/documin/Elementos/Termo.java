@@ -30,7 +30,7 @@ public class Termo extends Elemento {
 
     @Override   
     public String representacaoCompleta() {
-        String result = "Total termos: " + lista.size() + "- \n";
+        String result = "Total termos: " + lista.size() + "\n - ";
         for (int i = 0; i != lista.size(); i++) {
             result += lista.get(i);
             result += (i == lista.size() - 1) ? "" : ", "; 

@@ -9,6 +9,8 @@ public class Elemento {
     private String valor;
     
     public Elemento(String valor, int prioridade) {
+        if (prioridade < 1) { prioridade = 1; }
+        if (prioridade > 5) { prioridade = 5; }
         this.valor = valor;
         this.prioridade = prioridade;
     }

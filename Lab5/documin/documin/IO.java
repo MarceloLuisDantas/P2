@@ -1,5 +1,6 @@
 package documin;
 
+
 import java.util.Scanner;
 
 public class IO {

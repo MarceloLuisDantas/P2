@@ -45,7 +45,11 @@ public class Documento {
     }
 
     public Elemento getElemento(int indice) {
-        return elementos.get(indice);
+        return elementos.get(indice - 1);
+    }
+
+    public boolean existeElemento(int indice) {
+        return (indice <= elementos.size());
     }
 
     public String[] ShowElementos() {
@@ -71,6 +75,7 @@ public class Documento {
     }
 
     public int mediaPrioridades() {
+        if (elementos.size() == 0) { return 0; }
         int result = 0;
         for (Elemento e : elementos) 
             result += e.getPrioridade();
